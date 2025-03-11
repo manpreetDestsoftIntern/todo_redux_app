@@ -45,7 +45,7 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-lg mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Todo List</h1>
       <div className="flex gap-2 mb-4">
         <Input
@@ -57,13 +57,14 @@ export default function Home() {
       </div>
       <div className="space-y-2">
         {tasks.map((task, index) => (
-          <Card key={index} className="flex justify-between items-center p-2">
+          <div key={index} className="flex justify-between items-center p-2">
+          <Card className="w-full rounded-lg flex justify-between items-center p-2">
             <CardContent
               className={`flex-1 ${task.completed ? "line-through text-gray-500" : ""}`}
             >
               {task.text}
             </CardContent>
-            <div className="flex gap-2">
+            <div className="flex gap-0">
               <Button variant="ghost" onClick={() => toggleTask(task.id)}>
                 <Check className="text-green-500" />
               </Button>
@@ -75,6 +76,10 @@ export default function Home() {
               </Button>
             </div>
           </Card>
+          <Card className="rounded-full ml-6">
+              <div>{task.currentTime ? task.currentTime : "0:00:00"}</div>
+          </Card>
+          </div>
         ))}
       </div>
     </div>

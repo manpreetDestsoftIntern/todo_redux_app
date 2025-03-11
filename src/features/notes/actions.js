@@ -17,23 +17,17 @@ const generateUniqueId = () => {
 }
 
 
-const getTimeRemaining = (e) => {
-  const total =
-      Date.parse(e) - Date.parse(new Date());
-  const seconds = Math.floor((total / 1000) % 60);
-  const minutes = Math.floor(
-      (total / 1000 / 60) % 60
-  );
-  const hours = Math.floor(
-      (total / 1000 / 60 / 60) % 24
-  );
-  return {
-      total,
-      hours,
-      minutes,
-      seconds,
-  };
-};
+function convertMillisToTime(milliseconds) {
+  const hours = Math.floor(milliseconds / 3600000); // 1 hour = 3600000 milliseconds
+  const remainingMillisAfterHours = milliseconds % 3600000;
+  const minutes = Math.floor(remainingMillisAfterHours / 60000); // 1 minute = 60000 milliseconds
+  const remainingMillisAfterMinutes = remainingMillisAfterHours % 60000;
+  const seconds = Math.floor(remainingMillisAfterMinutes / 1000); // 1 second = 1000 milliseconds
+
+  // Return the result in 'hours:minutes:seconds' format
+  return `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+}
+
 
 export const AddNotes = (state, action) => {
     const id = generateUniqueId();
@@ -64,6 +58,9 @@ export const StartTimmer = (state, action) => {
       saveState(state); // Save updated state to localStorage
   }
 };
+export const RunningTime = (state, action) => {
+  
+}
 export const StopTimmer = (state, action) => {
   const task = state.tasks.find(task => task.id === action.payload);
   if (task && task.isRunning) {
@@ -72,7 +69,8 @@ export const StopTimmer = (state, action) => {
       task.timeElapsed += timeElapsed; // Update the task's total elapsed time
       task.isRunning = false; // Set isRunning to false
       task.startTime = null; // Clear the start time
+      task.currentTime = convertMillisToTime(task.timeElapsed); 
       saveState(state); // Save updated state to localStorage
-      console.log(task.timeElapsed)
+      console.log(convertMillisToTime(task.timeElapsed)); 
   }
 };

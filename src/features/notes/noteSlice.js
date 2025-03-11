@@ -16,8 +16,6 @@ export const noteSlice = createSlice({
   name: 'note',
   initialState:  {
     tasks: loadState(), // Load tasks from localStorage on initial load
-    lastDate: "",
-    newDate: "",
   },
   reducers: {
     add: AddNotes,
