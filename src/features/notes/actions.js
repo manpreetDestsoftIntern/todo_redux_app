@@ -52,8 +52,6 @@ export const StartTimmer = (state, action) => {
       if (!task.isRunning) {
           task.isRunning = true;
           task.startTime = new Date().getTime(); // Save start time in milliseconds
-      console.log(task.timeElapsed)
-
       }
       saveState(state); // Save updated state to localStorage
   }
@@ -71,6 +69,16 @@ export const StopTimmer = (state, action) => {
       task.startTime = null; // Clear the start time
       task.currentTime = convertMillisToTime(task.timeElapsed); 
       saveState(state); // Save updated state to localStorage
-      console.log(convertMillisToTime(task.timeElapsed)); 
   }
 };
+export const StartStopWatch = (state, action) => {
+  // const task = state.tasks.find(task => task.id === action.payload.id);
+  console.log(action.payload)
+}
+export const EndStopWatch = (state, action) => {
+  // const task = state.tasks.find(task => task.id === action.payload.id);
+  console.log(action.payload)
+}
+export const StopWatch = (state, action) => {
+
+}

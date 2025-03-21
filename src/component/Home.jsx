@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { Check, Trash2, CirclePlay, CirclePause } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove, startTimmer, stopTimmer, toggleComplete } from "../features/notes/noteSlice"
+import { add, remove, startTimmer, stopTimmer, toggleComplete, stopWatch, startStopWatch } from "../features/notes/noteSlice"
 export default function Home() {
   const [input, setInput] = useState("");
   const [isRunning, setRunStatus] = useState(false);
   const tasks = useSelector(state => state.notes.tasks); // Get tasks from store
+  const timer = useSelector(state => state.notes.timer);  // Access the timer state
+
   const dispatch = useDispatch()
 
   const addTask = () => {
@@ -36,9 +38,11 @@ export default function Home() {
   };
   const timmerToggle = (id) => {
     if (isRunning){
+      // dispatch(stopWatch())
       removeTimmerFnc(id)
       setRunStatus(false)
     }else {
+      // dispatch(startStopWatch())
       startTimmerFnc(id)
       setRunStatus(true)
     }
@@ -78,6 +82,7 @@ export default function Home() {
           </Card>
           <Card className="rounded-full ml-6">
               <div>{task.currentTime ? task.currentTime : "0:00:00"}</div>
+              {/* <div>{tasks.updatedTime}, {task.min}, {task.sec}, {task.count}</div> */}
           </Card>
           </div>
         ))}

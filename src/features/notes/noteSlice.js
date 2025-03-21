@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AddNotes, RemoveNotes, StartTimmer, StopTimmer, ToggleCompleteNotes } from './actions';
+import { AddNotes, RemoveNotes, StartTimmer, StopTimmer, ToggleCompleteNotes, StartStopWatch, EndStopWatch, StopWatch } from './actions';
 
 // Function to load tasks from localStorage
 const loadState = () => {
@@ -23,10 +23,13 @@ export const noteSlice = createSlice({
     toggleComplete: ToggleCompleteNotes,
     startTimmer: StartTimmer,
     stopTimmer: StopTimmer,
+    startStopWatch: StartStopWatch,
+    endStopWatch: EndStopWatch,
+    stopWatch: StopWatch
     }
 });
 
 // Action creators are generated for each case reducer function
-export const { add, remove, toggleComplete, startTimmer, stopTimmer } = noteSlice.actions;
+export const { add, remove, toggleComplete, startTimmer, stopTimmer, startStopWatch, endStopWatch, stopWatch } = noteSlice.actions;
 
 export default noteSlice.reducer;
